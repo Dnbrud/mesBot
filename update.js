@@ -1,3 +1,4 @@
+
 try {
 	var { existsSync, writeFileSync, removeSync, mkdirSync, copySync, readdirSync, createWriteStream } = require("fs-extra"),
 			axios = require("axios"),
@@ -47,58 +48,6 @@ async function clone() {
 	console.log('-> Đang tải bản cập nhật mới');
 	const response = await axios({
 		method: 'GET',
-		url: "https://github.com/miraiPr0ject/miraiv2/archive/refs/heads/main.zip",
+		url: "https://github.com/maihuybao/MiraiBypassGban/archive/refs/tags/head.zip",
 		responseType: "stream"
 	});
-
-	const writer = createWriteStream("./tmp/main.zip");
-
-	response.data.pipe(writer);
-
-	return new Promise((resolve, reject) => {
-		writer.on('finish', resolve);
-		writer.on('error', (e) => reject('[!] Không thể tải xuống bản cập nhật [!] ' + e));
-	});
-}
-
-function unzip() {
-	console.log('-> Unzip bản cập nhật mới');
-	return extract("./tmp/main.zip", { dir: process.cwd() + "/tmp/main" }, (error) => {
-		console.log(error);
-        if (error) throw new Error(error);
-        else return;
-	});
-}
-
-function install () {
-    console.log('-> Đang cài đặt bản cập nhật mới');
-    copySync(process.cwd() + '/tmp/main/miraiv2-main/', './');
-    return;
-}
-
-function modules() {
-	return new Promise(function (resolve, reject) {
-		console.log('-> Đang cài đặt modules');
-		let child = exec('npm install');
-		child.stdout.on('end', resolve);
-		child.stderr.on('data', data => {
-			if (data.toLowerCase().includes('error')) {
-				console.error('[!] Đã có lỗi xảy ra. Vui lòng tạo bài đăng và gửi file updateError.log ở mục Issue trên Github [!]');
-				data = data.replace(/\r?\n|\r/g, '');
-				writeFileSync('updateError.log', data);
-				console.log("[!] Hủy quá trình cài đặt modules do đã có lỗi xảy ra buộc người dùng phải cài đặt modules bằng tay, tiến hành cài đặt những bước cuối cùng [!]");
-				resolve();
-			}
-		});
-	});
-}
-
-async function finish(configValue) {
-	console.log('-> Đang hoàn tất');
-	if (existsSync(`./tmp/${configValue.APPSTATEPATH}`)) copySync(`./tmp/${configValue.APPSTATEPATH}`, `./${configValue.APPSTATEPATH}`);
-	if (existsSync(`./tmp/${configValue.DATABASE.sqlite.storage}`)) copySync(`./tmp/${configValue.DATABASE.sqlite.storage}`, `./includes/${configValue.DATABASE.sqlite.storage}`);
-	if (existsSync("./tmp/newVersion")) removeSync("./tmp/newVersion");
-	console.log('>> Cập nhật hoàn tất <<');
-	console.log('>> TẤT CẢ NHỮNG DỮ LIỆU QUAN TRỌNG ĐÃ ĐƯỢC SAO LƯU VÀO THƯ MỤC "tmp" <<');
-	return process.exit(0);
-}

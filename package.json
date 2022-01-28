@@ -1,7 +1,7 @@
 {
-	"name": "miraiBot",
+	"name": "MiraiBypass",
 	"version": "1.2.15",
-	"description": "A simple Facebook Messenger Bot made by me(CatalizCS) and my brother SpermLord.",
+	"description": "Bẻ khoá và bổ sung bới Mai Huy Bảo",
 	"main": "mirai.js",
 	"scripts": {
 		"start": "node index",
@@ -10,7 +10,7 @@
 	},
 	"repository": {
 		"type": "git",
-		"url": "git+https://github.com/miraipr0ject/miraiv2.git"
+		"url": "git+https://github.com/maihuybao/MiraiBypassGban.git"
 	},
 	"keywords": [
 		"bot",
@@ -29,22 +29,24 @@
 	},
 	"homepage": "https://github.com/miraipr0ject/miraiv2#readme",
 	"dependencies": {
+		"@maihuybao/fca-unofficial": "",
 		"@miraipr0ject/assets": "",
 		"axios": "",
 		"body-parser": "",
 		"caesar-salad": "",
-		"canvas": "",
+		"canvas": "^2.8.0",
 		"chalk": "",
 		"cheerio": "",
 		"child_process": "",
 		"crypto": "",
 		"eval": "",
+		"express": "^4.17.1",
 		"extract-zip": "",
-		"@miraipr0ject/fca-unofficial": "",
 		"figlet": "",
 		"fs-extra": "",
 		"jimp": "",
 		"minimist": "",
+		"modules": "^0.4.0",
 		"moment-timezone": "",
 		"ms": "",
 		"npmlog": "",
@@ -53,8 +55,10 @@
 		"request": "",
 		"semver": "",
 		"sequelize": "",
-		"sqlite3": "",
+		"sqlite": "^4.0.23",
+		"sqlite3": "^5.0.2",
 		"string-similarity": "",
+		"to-zalgo": "^1.0.1",
 		"totp-generator": ""
 	}
 }
